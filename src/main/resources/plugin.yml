@@ -1,0 +1,7 @@
+name: ChatT
+version: '${project.version}'
+main: chatt.main.Main
+api-version: 1.17
+authors: [ Umut ]
+commands:
+  konusma:
