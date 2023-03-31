@@ -14,6 +14,7 @@ public class ChatCommand implements CommandExecutor {
         this.chat = chat;
     }
 
+    //deneme
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
