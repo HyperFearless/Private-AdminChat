@@ -1,4 +1,4 @@
-name: ChatT
+name: AdminChat
 version: '${project.version}'
 main: chatt.main.Main
 api-version: 1.17

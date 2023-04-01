@@ -1,0 +1,22 @@
+Title: "&c&lYönetim Sohbet"
+
+
+#Oyuncu giriş cıkış ayarları
+#Player join and quit settings
+adding-player: "&eGruba katıldın"
+add-player: "&bAdlı oyuncu gruba eklendi"
+target-player: "&aGruba eklendin"
+player-quit: "&cGruptan çıktın"
+target-you-left: "&cGrutpan çıkartıldın"
+target-left: "&aGruptan çıkartıldı"
+none-group: "&bGrubta değilsin"
+target-none-group: "&aGrubta değil"
+player-already-group: "&3Zaten Gruptasın"
+player-not-found: "&cAdlı oyuncu Bulunamadı "
+not-found-command: "&4Geçersiz komut!"
+not-console-command: "&e&lBu komut sadece oyuncular tarafından kullanılabilir"
+
+
+#how-to-use-command-playerlist-show: "Kullanım şekli: /konusma bak"
+how-to-use-command-add: "Kullanım şekli: /konusma ekle [oyuncu adı]"
+how-to-use-command-quit: "Kullanım şekli: /konusma çıkart [oyuncu adı]"
