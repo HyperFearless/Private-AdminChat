@@ -1,35 +1,40 @@
 # Lütfen dosyanın formatını doğru bir şekilde koruyunuz.
+# Anahtar kelimeler değiştirilirse config dosyası bozulabilir.
+
+# Varsayılan değer FALSE
+# True = Config dosyasınıdaki hataları bulur sırasıyla ve kayıt dosyasına yazar
+# False = Config dosyasındaki hatayı ellemez. Hatalı olan anahtar kelimesini null değerine çevirir
+# eğer auto-default-config çalışıcaksa iki değerinde true olması gerekir.
+ConfigController: false
+Auto-default-config: false
+
 Author: Umut
 
 #Sohbetin özel olduğunu bildirmek için gösterge.
-Title: "&7[&c&lYönetim Sohbet&7]"
+Title: "&7[&cYönetim Sohbet&7]"
 # Kullanılabilecek bazı simgeler "> , ➔ , ➤ , ➞ , ❯ , ❱ , ᐳ ".
 Title-symbol: " &b➤&f"
 Boosbar: "&7[&c&lYönetim Sohbet&7]"
 Boosbar-Color: "&a"
 
-# Oyuncuları ekleme, çıkartma, düzenleme gibi ayarların anlaşılabilir kılması için.
-adding-player: "&eGruba katıldınız"
-add-player: "&bBelirtilen oyuncu gruba eklendi"
-target-player: "&aGrupa yer eklendiniz"
-player-quit: "&cGrubu terk ettiniz"
-target-you-left: "&cGrubunuzdan çıkartıldınız"
-target-left: "&aGrubunuzdan birisi çıkartıldı"
-none-group: "&bHerhangi bir grupta değilsiniz"
-target-none-group: "&aAdlı oyuncu herhangi bir grupta değil"
-player-already-group: "&3Zaten bir gruptasınız"
-player-not-found: "&cBelirtilen oyuncu bulunamadı"
+# Oyuncuları ekleme, çıkartma, oyunu terk etme, düzenleme gibi ayarların anlaşılabilir kılması için.
+adding-player: "&bGruba katıldınız!"
+add-player: "&bAdlı oyuncu gruba eklendi!"
+target-player: "&aGruba eklendiniz!"
+player-quit: "&cGrubu terk ettiniz!"
+target-you-left: "&cGrubunuzdan çıkartıldı!"
+target-left: "&aTarafından gruptan çıkartıldınız!"
+none-group: "&bHerhangi bir grupta değilsiniz!"
+target-none-group: "&aAdlı oyuncu herhangi bir grupta değil!"
+player-game-quit: "&cAdlı oyuncu oyundan çıktığı için gruptan atıldı"
+player-already-group: "&3Zaten bir grupta!"
+player-not-found: "&cBelirtilen oyuncu bulunamadı!"
 not-found-command: "&4Komut bulunamadı!"
 not-console-command: "&e&lBu komut sadece oyuncular tarafından kullanılabilir!"
+not-have-permission: "&4Malesef yetkiniz yok!!"
 
 
 # Kullanılamayan komutların açıklaması
 how-to-use-command-all: "Kullanım şekli: /konuşma ekle/çıkart/bak"
 how-to-use-command-add: "Kullanım şekli: /konusma ekle [oyuncu adı]"
 how-to-use-command-quit: "Kullanım şekli: /konusma çıkart [oyuncu adı]"
-
-# Bu ayarı TRUE/FALSE olarak değiştirebilirsiniz.
-ConfigController: false
-# Varsayılan değer FALSE
-# True = Config dosyasındaki hatayı düzeltmeye çalışır //anahtar kelime değiştirilse config dosyası bozulabilir.
-# False = Config dosyasındaki hatayı ellemez.

@@ -1,5 +1,4 @@
 package chatt.main;
-import chatt.main.Main;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -22,148 +21,165 @@ public class ChatCommand implements CommandExecutor {
             Player player = (Player) sender;
             if (args.length >= 1)
             {
-                //Kullanıcı ekle gruptamı kontrollü
-                if (args[0].equalsIgnoreCase("ekle"))
+                //Komudu kullanacak kişide izin (permission) veya op yetkisi varsa"
+                if (player.hasPermission("privatechat.true"))
                 {
-                    //Oyuncu yanlış girer ise
-                    if (args.length < 2) {
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("how-to-use-command-add")));
-                        return false;
-                    }
-                    if (Bukkit.getPlayer(args[1]) != null)
+                    //Kullanıcı ekle gruptamı kontrollü
+                    if (args[0].equalsIgnoreCase("ekle"))
                     {
-                        //Hedeflenen kişi kendin ise
-                        Player target = Bukkit.getPlayerExact(args[1]);
-                        if (target == player)
-                        {
-                            if (!chat.getPlayerList().contains(player.getPlayer()))
-                            {
-                                chat.addplayerList(player);
-                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', player.getDisplayName() + " " + config.getConfig().getString("add-player")));
-                            }
-                            else
-                            {
-                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("player-already-group")));
-                            }
-                        }
-                        //Oyuncu bulunamadıysa
-                        else if (target == null)
-                        {
-                            player.sendMessage("asdasdas");
-                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', args[1] + " " + config.getConfig().get("player-not-found")));
+                        //Oyuncu yanlış girer ise
+                        if (args.length < 2) {
+                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + config.getConfig().getString("how-to-use-command-add")));
                             return false;
                         }
-                        //Oyuncu doğru bir hedef verdiğinde
-                        else
+                        if (Bukkit.getPlayer(args[1]) != null)
                         {
-                            if (!chat.getPlayerList().contains(target.getPlayer()))
+                            //Hedeflenen kişi kendin ise
+                            Player target = Bukkit.getPlayerExact(args[1]);
+                            if (target == player)
                             {
                                 if (!chat.getPlayerList().contains(player.getPlayer()))
                                 {
                                     chat.addplayerList(player);
-                                    chat.addplayerList(target);
-                                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',player.getDisplayName() + " " + config.getConfig().getString("adding-player")));
-                                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',target.getDisplayName() + " " + config.getConfig().getString("add-player")));
-                                    target.sendMessage(ChatColor.translateAlternateColorCodes('&',target.getDisplayName() + " " + config.getConfig().getString("target-player")));
+                                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + player.getDisplayName() + " " + config.getConfig().getString("add-player")));
                                 }
                                 else
                                 {
-                                    chat.addplayerList(target);
-                                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', player.getDisplayName() + " " + config.getConfig().getString("add-player")));
-                                    target.sendMessage(ChatColor.translateAlternateColorCodes('&', target.getDisplayName() + " " + config.getConfig().getString("target-player")));
+                                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + target.getDisplayName() + " " + config.getConfig().getString("player-already-group")));
                                 }
                             }
-                            //Oyuncu zaten grupta
+                            //Oyuncu bulunamadıysa
+                            else if (target == null)
+                            {
+                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + args[1] + " " + config.getConfig().get("player-not-found")));
+                                return true;
+                            }
+                            //Oyuncu doğru bir hedef verdiğinde
                             else
                             {
-                                player.sendMessage(ChatColor.translateAlternateColorCodes('&',player.getDisplayName() + " " + config.getConfig().getString("player-already-group")));
+                                if (!chat.getPlayerList().contains(target.getPlayer()))
+                                {
+                                    if (!chat.getPlayerList().contains(player.getPlayer()))
+                                    {
+                                        chat.addplayerList(player);
+                                        chat.addplayerList(target);
+                                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + player.getDisplayName() + " " + config.getConfig().getString("adding-player")));
+                                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + target.getDisplayName() + " " + config.getConfig().getString("add-player")));
+                                        target.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + target.getDisplayName() + " " + config.getConfig().getString("target-player")));
+                                    }
+                                    else
+                                    {
+                                        chat.addplayerList(target);
+                                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + target.getDisplayName() + " " + config.getConfig().getString("add-player")));
+                                        target.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + target.getDisplayName() + " " + config.getConfig().getString("target-player")));
+                                    }
+                                }
+                                //Oyuncu zaten grupta
+                                else if (chat.getPlayerList().contains(target))
+                                {
+                                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + target.getDisplayName() + " " + config.getConfig().getString("player-already-group")));
+                                }
                             }
                         }
                     }
-                }
-                //gruptan çıkartma
-                else if (args[0].equalsIgnoreCase("çıkart") || args[0].equalsIgnoreCase("cıkart"))
-                {
-                    //Oyuncu yanlış girdiyse
-                    if (args.length < 2)
+                    //gruptan çıkartma
+                    else if (args[0].equalsIgnoreCase("çıkart") || args[0].equalsIgnoreCase("cıkart"))
                     {
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&',config.getConfig().getString("how-to-use-command-quit")));
-                        return false;
+                        //Oyuncu yanlış girdiyse
+                        if (args.length < 2)
+                        {
+                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + config.getConfig().getString("how-to-use-command-quit")));
+                            return false;
+                        }
+                        //Hedef grupta veya kendisi ise
+                        Player target = Bukkit.getPlayerExact(args[1]);
+                        if (target == player)
+                        {
+                            if (!chat.getPlayerList().contains(player))
+                            {
+                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + config.getConfig().getString("none-group")));
+                            }
+                            else
+                            {
+                                chat.removeplayerList(player);
+                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + config.getConfig().getString("player-quit")));
+                            }
+                        }
+                        //Hedef yanlış ise
+                        else if (target == null)
+                        {
+                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + args[1] + " " + config.getConfig().getString("player-not-found")));
+                            return false;
+                        }
+                        //Hedef doğru ise
+                        else
+                        {
+                            if (!chat.getPlayerList().contains(target))
+                            {
+                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + target.getDisplayName() + " " + config.getConfig().getString("target-none-group")));
+                            }
+                            else
+                            {
+                                chat.removeplayerList(target);
+                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + target.getDisplayName() + " " + config.getConfig().getString("target-you-left")));
+                                target.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + player.getDisplayName() + " " + config.getConfig().getString("target-left")));
+                            }
+                        }
                     }
-                    //Hedef grupta veya kendisi sie
-                    Player target = Bukkit.getPlayerExact(args[1]);
-                    if (target == player)
+                    //kendin sohbetten çıkmak isterse
+                    else if (args[0].equalsIgnoreCase("çık") || args[0].equalsIgnoreCase("cık"))
+                    {
+                        if (chat.getPlayerList().contains(player))
+                        {
+                            chat.removeplayerList(player);
+                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + player.getDisplayName() + " " + config.getConfig().getString("player-quit")));
+                        }
+                        else
+                        {
+                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + config.getConfig().getString("none-group")));
+                        }
+                    }
+                    //Oyuncu sayılarını kontrol eder
+                    else if (args[0].equalsIgnoreCase("bak"))
                     {
                         if (!chat.getPlayerList().contains(player))
                         {
-                            player.sendMessage(ChatColor.translateAlternateColorCodes('&',config.getConfig().getString("none-group")));
+                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + config.getConfig().getString("none-group")));
                         }
                         else
                         {
-                            chat.removeplayerList(player);
-                            player.sendMessage(ChatColor.translateAlternateColorCodes('&',config.getConfig().getString("player-quit")));
+                            int i = 1;
+                            player.sendMessage(ChatColor.GREEN + "Gruptaki oyuncular:");
+                            for (Player target : chat.getPlayerList())
+                            {
+                                player.sendMessage(i +". "+ target.getDisplayName());
+                                i++;
+                            }
                         }
                     }
-                    //Hedef yanlış ise
-                    else if (target == null)
+                    //Config dosyasını yeniler
+                    else if (args[0].equalsIgnoreCase("reload"))
                     {
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', args[1] + " " + config.getConfig().getString("player-not-found")));
-                        return false;
-                    }
-                    //Hedef doğru ise
-                    else
-                    {
-                        if (!chat.getPlayerList().contains(target))
-                        {
-                            player.sendMessage(ChatColor.translateAlternateColorCodes('&',target.getDisplayName() + " " + config.getConfig().getString("target-none-group")));
-                        }
-                        else
-                        {
-                            chat.removeplayerList(target);
-                            player.sendMessage(ChatColor.translateAlternateColorCodes('&',target.getDisplayName() + " " + config.getConfig().getString("target-you-left")));
-                            target.sendMessage(ChatColor.translateAlternateColorCodes('&',player.getDisplayName() + " " + config.getConfig().getString("target-left")));
-                        }
+                        config.reloadconfig();
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title")+ " " + "Plugin successfully reloaded"));
                     }
                 }
-                //kendin sohbetten çıkmak isterse
-                else if (args[0].equalsIgnoreCase("çık") || args[0].equalsIgnoreCase("cık"))
+                else
                 {
-                    if (chat.getPlayerList().contains(player))
-                    {
-                        chat.removeplayerList(player);
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', player.getName() + " " + config.getConfig().getString("player-quit")));
-                    }
-                }
-                //Oyuncu sayılarını kontrol eder
-                else if (args[0].equalsIgnoreCase("bak"))
-                {
-                    if (!chat.getPlayerList().contains(player))
-                    {
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&',player.getDisplayName() + " " + config.getConfig().getString("none-group")));
-                    }
-                    else
-                    {
-                        int i = 1;
-                        player.sendMessage(ChatColor.GREEN + "Gruptaki oyuncular:");
-                        for (Player target : chat.getPlayerList())
-                        {
-                            player.sendMessage(i +". "+ target.getDisplayName());
-                            i++;
-                        }
-                    }
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + config.getConfig().getString("not-have-permission")));
                 }
             }
             //Oyuncu komut yanlış girerse veya girmez ise
             else
             {
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&',config.getConfig().getString("how-to-use-command-all")));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().get("Title") + " " + config.getConfig().getString("how-to-use-command-all")));
                 //player.sendMessage(ChatColor.translateAlternateColorCodes('&',config.getConfig().getString("not-found-command")));
             }
         }
         //Kullanıcı konsoldan komut kullanmak ister ise
         else
         {
-            Bukkit.getLogger().info(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("not-console-command")));
+            Bukkit.getLogger().info(ChatColor.translateAlternateColorCodes('&', " " + config.getConfig().getString("Title") + " " + config.getConfig().getString("not-console-command")));
             return false;
         }
         return true;

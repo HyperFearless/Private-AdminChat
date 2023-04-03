@@ -2,6 +2,21 @@ name: AdminChat
 version: '${project.version}'
 main: chatt.main.Main
 api-version: 1.17
+load: STARTUP
 authors: [ Umut ]
 commands:
   konusma:
+    permission: privatechat.true
+    description: Ana komut
+    aliases:
+      - grup
+      - agrup
+      - achat
+permissions:
+  privatechat.*:
+    description: Tüm grup yetkilerine sahip olur
+    children:
+      privatechat.true: true
+  privatechat.true:
+    description: Gruba katılmaya izin verir #Allows to join the group
+    default: op

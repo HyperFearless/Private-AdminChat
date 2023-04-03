@@ -1,6 +1,7 @@
 package chatt.main;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -8,11 +9,10 @@ import org.bukkit.plugin.Plugin;
 import java.io.File;
 public class ChatConfig {
 
-    //Plugin plugin = Bukkit.getPluginManager().getPlugin("AdminChat");
-    //String authors = plugin.getDescription().getAuthors().toString();
     public Main main;
     public File file;
     public FileConfiguration config;
+
     public ChatConfig(Plugin plugin , String path, Main main) {
         this(plugin.getDataFolder().toPath().resolve(path).toString());
         this.main = main;
@@ -20,16 +20,6 @@ public class ChatConfig {
     public ChatConfig(String path) {
         file = new File(path);
         this.config = YamlConfiguration.loadConfiguration(this.file);
-    }
-    public void save()
-    {
-        try {
-            //this.config.save(this.file);
-            main.saveDefaultConfig();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
     }
     public File getFile()
     {
@@ -39,21 +29,96 @@ public class ChatConfig {
     {
         return this.config;
     }
+    public void save()
+    {
+        try {
+            this.config.save(this.file);
+            main.saveDefaultConfig();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    //Reload sistemi
+    public void reloadconfig()
+    {
+        config = YamlConfiguration.loadConfiguration(file);
+    }
 
     //Dosya kontrol sistemi
     public void updater() {
-        String[] anahtarKelimeler = {"Title","Boosbar","Boosbar-Color"};
-        String[] valuekey = {"&c&lYönetim Sohbet","&eYönetim Sohbet","&a"};
-        config.options().copyDefaults(true);
-        config.options().header(  "Authors: Umut #Lütfen bu alanı değiştirmeyiz\n "+ "# Lütfen dosyanın formatını doğru bir şekilde koruyunuz.");
+        String[] anahtarKelimeler = {
+                "ConfigController",
+                "Auto-default-config",
+                "Author",
+                "Title",
+                "Boosbar",
+                "Boosbar-Color",
+                "adding-player",
+                "add-player",
+                "target-player",
+                "player-quit",
+                "target-you-left",
+                "target-left",
+                "none-group",
+                "target-none-group",
+                "player-game-quit",
+                "player-already-group",
+                "player-not-found",
+                "not-found-command",
+                "not-console-command",
+                "not-have-permission",
+                "how-to-use-command-all",
+                "how-to-use-command-add",
+                "how-to-use-command-quit"};
+
+        String[] valuekey = {
+                "false",
+                "false",
+                "Umut",
+                "&7[&cYönetim Sohbet&7]",
+                " &b➤&f",
+                "&7[&c&lYönetim Sohbet&7]",
+                "&a",
+                "&bGruba katıldınız!",
+                "&bAdlı oyuncu gruba eklendi!",
+                "&aGruba eklendiniz!",
+                "&cGrubu terk ettiniz!",
+                "&cGrubunuzdan çıkartıldı!",
+                "&aTarafından gruptan çıkartıldınız!",
+                "&bHerhangi bir grupta değilsiniz!",
+                "&aAdlı oyuncu herhangi bir grupta değil!",
+                "&cAdlı oyuncu oyundan çıktığı için gruptan atıldı",
+                "&3Zaten bir grupta!",
+                "&cBelirtilen oyuncu bulunamadı!",
+                "&4Komut bulunamadı!",
+                "&e&lBu komut sadece oyuncular tarafından kullanılabilir!",
+                "&4Malesef yetkiniz yok!!",
+                "Kullanım şekli: /konuşma ekle/çıkart/bak",
+                "Kullanım şekli: /konusma ekle [oyuncu adı]",
+                "Kullanım şekli: /konusma çıkart [oyuncu adı]"};
+
+        config.options().header(" \n" +
+                "Lütfen dosyanın formatını doğru bir şekilde koruyunuz.\n" +
+                "Anahtar kelimeler değiştirilirse config dosyası bozulabilir.\n" +
+                "Varsayılan değer FALSE\n" +
+                "True = Config dosyasınıdaki hataları bulur sırasıyla ve kayıt dosyasına yazar.\n" +
+                "False = Config dosyasındaki hatayı ellemez. Hatalı olan anahtar kelimesini null değerine çevirir.\n" +
+                "Eğer dosya bozulduysa true veya false değerlerinin yanındaki kesme işaretini (') kaldırınız. \n");
+        int a = 9;
         for (int i = 0; i < anahtarKelimeler.length; i++) {
             if (getConfig().contains(anahtarKelimeler[i])) {
-                Bukkit.getLogger().warning("Metin, " + anahtarKelimeler[i] + " anahtar kelimesini içeriyor.");
-            } else {
-                Bukkit.getLogger().warning("Metin, " + anahtarKelimeler[i] + " anahtar kelimesini içermiyor.");
-                getConfig().set(anahtarKelimeler[i], valuekey[i]);
-                save();
-
+                a++;
+                Bukkit.getLogger().warning(ChatColor.translateAlternateColorCodes('&',"&7[&cYönetim Sohbet&7] &c" + a + ".&eSatır " + anahtarKelimeler[i] + " &aanahtar kelimesini içeriyor."));
+            }
+            else {
+                a++;
+                Bukkit.getLogger().warning(ChatColor.translateAlternateColorCodes('&',"&7[&cYönetim Sohbet&7] &c" + a + ".&eSatır " + anahtarKelimeler[i] + " &4anahtar kelimesini içermiyor."));
+                if (getConfig().getBoolean("Auto-default-config",true))
+                {
+                    config.set(anahtarKelimeler[i], valuekey[i]);
+                    save();
+                }
             }
         }
     }
