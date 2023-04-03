@@ -6,10 +6,17 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Chat implements Listener {
+    public File file;
+    public ChatConfig config;
+    public Chat(ChatConfig config)
+    {
+        this.config = config;
+    }
     private List<Player> playerList = new ArrayList<>();
     public void addplayerList(Player player)
     {
@@ -30,7 +37,7 @@ public class Chat implements Listener {
             e.setCancelled(true);
             for (Player target : playerList)
             {
-                target.sendMessage(ChatColor.GREEN.toString()+ player.getDisplayName() + ChatColor.RED + " >> " + e.getMessage());
+                target.sendMessage(ChatColor.translateAlternateColorCodes('&',config.getConfig().getString("Title") + " " +ChatColor.GREEN.toString()+ player.getDisplayName() + config.getConfig().getString("Title-symbol") + " " + e.getMessage()));
             }
         }
     }
