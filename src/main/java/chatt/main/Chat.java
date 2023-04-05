@@ -1,36 +1,74 @@
 package chatt.main;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
+import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Chat implements Listener {
     public File file;
     public ChatConfig config;
+    public BossBar bossBar;
+    private final List<Player> playerList = Collections.synchronizedList(new ArrayList<Player>());
     public Chat(ChatConfig config)
     {
         this.config = config;
+        //BarColor color = BarColor.valueOf(config.getConfig().getString("Boosbar-Color"));
+
+        if (config.getConfig().contains("Boosbar-Color"))
+        {
+            BarColor color = BarColor.valueOf(config.getConfig().getString("Boosbar-Color"));
+            bossBar = Bukkit.createBossBar(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Boosbar")), color, BarStyle.SOLID);
+        }
+        else
+        {
+            BarColor color = BarColor.valueOf("RED");
+            bossBar = Bukkit.createBossBar(ChatColor.translateAlternateColorCodes('&', "&7[&c&lYönetim Sohbet&7]"), color, BarStyle.SOLID);
+        }
     }
-    private final List<Player> playerList = new ArrayList<Player>();
+    //Oyuncuya bossbar ekleme
+    public void addbossbar(Player player)
+    {
+        bossBar.addPlayer(player);
+    }
+    //Oyuncuyu sohbette ekleme
     public void addplayerList(Player player)
     {
         playerList.add(player);
+        bossBar.addPlayer(player);
     }
+    //Oyuncuyu sohbetten cıkartma
     public void removeplayerList(Player player)
     {
         playerList.remove(player);
+        bossBar.removePlayer(player);
     }
+    //Oyuncudan bossbarı çıkartma
+    public void removebossbar(Player player)
+    {
+        bossBar.removePlayer(player);
+    }
+    //Sohbette olan oyuncuları alma
     public List<Player> getPlayerList() {
         return playerList;
     }
+    public void clearList()
+    {
+        playerList.clear();
+    }
+
     @EventHandler
     public void onChat(AsyncPlayerChatEvent e)
     {
@@ -41,7 +79,7 @@ public class Chat implements Listener {
             //Oyuncu takımlisttinde var ise
             if (playerList.contains(player.getPlayer()))
             {
-                //eğer oyuncu ! ile mesaj göndermisse herkese göndericek kod
+                //eğer oyuncu ! ile mesaj göndermiş ise herkese göndericek kod
                 if (e.getMessage().startsWith("!"))
                 {
                     String modifiedmessage = e.getMessage().substring(1);
@@ -64,10 +102,17 @@ public class Chat implements Listener {
     public void onQuit(PlayerQuitEvent e)
     {
         Player player = e.getPlayer();
-        for (Player players : playerList)
+        //playerlist eventini bekliyecek veya beklettirecek
+        synchronized (playerList)
         {
-            players.sendMessage(ChatColor.translateAlternateColorCodes('&',  config.getConfig().getString("Title")+ " " + player.getDisplayName() +  " " + config.getConfig().getString("player-game-quit")));
+            if (playerList.contains(player))
+            {
+                for (Player players : playerList)
+                {
+                    players.sendMessage(ChatColor.translateAlternateColorCodes('&',  config.getConfig().getString("Title")+ " " + player.getDisplayName() +  " " + config.getConfig().getString("player-game-quit")));
+                }
+                removeplayerList(player);
+            }
         }
-        removeplayerList(player);
     }
 }

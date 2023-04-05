@@ -15,7 +15,8 @@ Title: "&7[&cYönetim Sohbet&7]"
 # Kullanılabilecek bazı simgeler "> , ➔ , ➤ , ➞ , ❯ , ❱ , ᐳ ".
 Title-symbol: " &b➤&f"
 Boosbar: "&7[&c&lYönetim Sohbet&7]"
-Boosbar-Color: "&a"
+# BLUE - GREEN - PINK - PURPLE - RED - WHITE - YELLOW
+Boosbar-Color: "YELLOW"
 
 # Oyuncuları ekleme, çıkartma, oyunu terk etme, düzenleme gibi ayarların anlaşılabilir kılması için.
 adding-player: "&bGruba katıldınız!"

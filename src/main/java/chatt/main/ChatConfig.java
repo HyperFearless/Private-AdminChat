@@ -4,10 +4,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 public class ChatConfig {
+    public Chat chat;
 
     public Main main;
     public File file;
@@ -42,7 +44,8 @@ public class ChatConfig {
     //Reload sistemi
     public void reloadconfig()
     {
-        config = YamlConfiguration.loadConfiguration(file);
+        main.reloadConfig();
+        config = main.getConfig();
     }
 
     //Dosya kontrol sistemi
@@ -79,7 +82,7 @@ public class ChatConfig {
                 "&7[&cYönetim Sohbet&7]",
                 " &b➤&f",
                 "&7[&c&lYönetim Sohbet&7]",
-                "&a",
+                "RED",
                 "&bGruba katıldınız!",
                 "&bAdlı oyuncu gruba eklendi!",
                 "&aGruba eklendiniz!",

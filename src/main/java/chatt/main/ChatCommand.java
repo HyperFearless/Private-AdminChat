@@ -6,6 +6,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
+
 public class ChatCommand implements CommandExecutor {
 
     private final ChatConfig config;
@@ -41,7 +43,7 @@ public class ChatCommand implements CommandExecutor {
                                 if (!chat.getPlayerList().contains(player.getPlayer()))
                                 {
                                     chat.addplayerList(player);
-                                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + player.getDisplayName() + " " + config.getConfig().getString("add-player")));
+                                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + player.getDisplayName() + " " + config.getConfig().getString("adding-player")));
                                 }
                                 else
                                 {
@@ -160,6 +162,8 @@ public class ChatCommand implements CommandExecutor {
                     //Config dosyasını yeniler
                     else if (args[0].equalsIgnoreCase("reload"))
                     {
+                        chat.clearList();
+                        chat.bossBar.removeAll();
                         config.reloadconfig();
                         player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title")+ " " + "Plugin successfully reloaded"));
                     }
