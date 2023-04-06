@@ -21,12 +21,10 @@ public class Chat implements Listener {
     public File file;
     public ChatConfig config;
     public BossBar bossBar;
-    private final List<Player> playerList = Collections.synchronizedList(new ArrayList<Player>());
+    private final List<Player> playerList = Collections.synchronizedList(new ArrayList<>());
     public Chat(ChatConfig config)
     {
         this.config = config;
-        //BarColor color = BarColor.valueOf(config.getConfig().getString("Boosbar-Color"));
-
         if (config.getConfig().contains("Boosbar-Color"))
         {
             BarColor color = BarColor.valueOf(config.getConfig().getString("Boosbar-Color"));
@@ -77,7 +75,7 @@ public class Chat implements Listener {
         if (player.hasPermission("privatechat.true"))
         {
             //Oyuncu takımlisttinde var ise
-            if (playerList.contains(player.getPlayer()))
+            if (playerList.contains(player))
             {
                 //eğer oyuncu ! ile mesaj göndermiş ise herkese göndericek kod
                 if (e.getMessage().startsWith("!"))

@@ -5,6 +5,7 @@
 # True = Config dosyasınıdaki hataları bulur sırasıyla ve kayıt dosyasına yazar
 # False = Config dosyasındaki hatayı ellemez. Hatalı olan anahtar kelimesini null değerine çevirir
 # eğer auto-default-config çalışıcaksa iki değerinde true olması gerekir.
+lang: "EN"
 ConfigController: false
 Auto-default-config: false
 

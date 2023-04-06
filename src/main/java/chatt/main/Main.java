@@ -9,6 +9,7 @@ import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 
 
 public final class Main extends JavaPlugin {
@@ -16,6 +17,7 @@ public final class Main extends JavaPlugin {
     public Chat chat = new Chat(config);
     @Override
     public void onEnable() {
+        saveDefaultConfig();
         Bukkit.getServer().getPluginManager().registerEvents(chat, this);
         getCommand("konusma").setExecutor(new ChatCommand(chat, config));
         getCommand("konusma").setTabCompleter(new ChatTabComplete(chat));

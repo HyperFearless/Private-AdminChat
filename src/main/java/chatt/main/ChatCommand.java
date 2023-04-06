@@ -40,7 +40,7 @@ public class ChatCommand implements CommandExecutor {
                             Player target = Bukkit.getPlayerExact(args[1]);
                             if (target == player)
                             {
-                                if (!chat.getPlayerList().contains(player.getPlayer()))
+                                if (!chat.getPlayerList().contains(player))
                                 {
                                     chat.addplayerList(player);
                                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + player.getDisplayName() + " " + config.getConfig().getString("adding-player")));
@@ -61,7 +61,7 @@ public class ChatCommand implements CommandExecutor {
                             {
                                 if (!chat.getPlayerList().contains(target.getPlayer()))
                                 {
-                                    if (!chat.getPlayerList().contains(player.getPlayer()))
+                                    if (!chat.getPlayerList().contains(player))
                                     {
                                         chat.addplayerList(player);
                                         chat.addplayerList(target);
@@ -177,7 +177,6 @@ public class ChatCommand implements CommandExecutor {
             else
             {
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().get("Title") + " " + config.getConfig().getString("how-to-use-command-all")));
-                //player.sendMessage(ChatColor.translateAlternateColorCodes('&',config.getConfig().getString("not-found-command")));
             }
         }
         //Kullanıcı konsoldan komut kullanmak ister ise

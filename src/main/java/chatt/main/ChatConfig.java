@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
@@ -14,7 +13,6 @@ public class ChatConfig {
     public Main main;
     public File file;
     public FileConfiguration config;
-
     public ChatConfig(Plugin plugin , String path, Main main) {
         this(plugin.getDataFolder().toPath().resolve(path).toString());
         this.main = main;
