@@ -10,7 +10,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -18,7 +17,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class Chat implements Listener {
-    public File file;
     public ChatConfig config;
     public BossBar bossBar;
     private final List<Player> playerList = Collections.synchronizedList(new ArrayList<>());
@@ -36,29 +34,20 @@ public class Chat implements Listener {
             bossBar = Bukkit.createBossBar(ChatColor.translateAlternateColorCodes('&', "&7[&c&lYönetim Sohbet&7]"), color, BarStyle.SOLID);
         }
     }
-    //Oyuncuya bossbar ekleme
-    public void addbossbar(Player player)
-    {
-        bossBar.addPlayer(player);
-    }
-    //Oyuncuyu sohbette ekleme
+
+    //Oyuncuyu gruba ekleme
     public void addplayerList(Player player)
     {
         playerList.add(player);
         bossBar.addPlayer(player);
     }
-    //Oyuncuyu sohbetten cıkartma
+    //Oyuncuyu gruptan cıkartma
     public void removeplayerList(Player player)
     {
         playerList.remove(player);
         bossBar.removePlayer(player);
     }
-    //Oyuncudan bossbarı çıkartma
-    public void removebossbar(Player player)
-    {
-        bossBar.removePlayer(player);
-    }
-    //Sohbette olan oyuncuları alma
+    //Gruptaki oyuncuların verisini alma
     public List<Player> getPlayerList() {
         return playerList;
     }
@@ -96,6 +85,7 @@ public class Chat implements Listener {
             }
         }
     }
+    //Oyuncu oyundan cıkar ise
     @EventHandler
     public void onQuit(PlayerQuitEvent e)
     {

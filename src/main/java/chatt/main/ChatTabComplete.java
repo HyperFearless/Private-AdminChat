@@ -46,7 +46,7 @@ public class ChatTabComplete implements TabCompleter {
                 List<String> names = new ArrayList<>();
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     //Sadece op veya perme sahip oyuncular alınıyor
-                    if (player.hasPermission("deneme")) {
+                    if (player.hasPermission("privatechat.grup")) {
                         names.add(player.getName());
                     }
                 }
@@ -58,7 +58,7 @@ public class ChatTabComplete implements TabCompleter {
                 List<String> names = new ArrayList<>();
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     //Sadece op veya perme sahip oyuncular alınıyor
-                    if (player.hasPermission("deneme")) {
+                    if (player.hasPermission("privatechat.grup")) {
                         names.add(player.getName());
                     }
                 }

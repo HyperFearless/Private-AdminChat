@@ -8,8 +8,6 @@ import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 public class ChatConfig {
-    public Chat chat;
-
     public Main main;
     public File file;
     public FileConfiguration config;
@@ -47,58 +45,56 @@ public class ChatConfig {
     }
 
     //Dosya kontrol sistemi
+    String[] anahtarKelimeler = {
+            "ConfigController",
+            "Auto-default-config",
+            "Author",
+            "Title",
+            "Boosbar",
+            "Boosbar-Color",
+            "adding-player",
+            "add-player",
+            "target-player",
+            "player-quit",
+            "target-you-left",
+            "target-left",
+            "none-group",
+            "target-none-group",
+            "player-game-quit",
+            "player-already-group",
+            "player-not-found",
+            "not-found-command",
+            "not-console-command",
+            "not-have-permission",
+            "how-to-use-command-all",
+            "how-to-use-command-add",
+            "how-to-use-command-quit"};
+    String[] valuekey = {
+            "false",
+            "false",
+            "Umut",
+            "&7[&cYönetim Sohbet&7]",
+            " &b➤&f",
+            "&7[&c&lYönetim Sohbet&7]",
+            "RED",
+            "&bGruba katıldınız!",
+            "&bAdlı oyuncu gruba eklendi!",
+            "&aGruba eklendiniz!",
+            "&cGrubu terk ettiniz!",
+            "&cGrubunuzdan çıkartıldı!",
+            "&aTarafından gruptan çıkartıldınız!",
+            "&bHerhangi bir grupta değilsiniz!",
+            "&aAdlı oyuncu herhangi bir grupta değil!",
+            "&cAdlı oyuncu oyundan çıktığı için gruptan atıldı",
+            "&3Zaten bir grupta!",
+            "&cBelirtilen oyuncu bulunamadı!",
+            "&4Komut bulunamadı!",
+            "&e&lBu komut sadece oyuncular tarafından kullanılabilir!",
+            "&4Malesef yetkiniz yok!!",
+            "Kullanım şekli: /konuşma ekle/çıkart/bak",
+            "Kullanım şekli: /konusma ekle [oyuncu adı]",
+            "Kullanım şekli: /konusma çıkart [oyuncu adı]"};
     public void updater() {
-        String[] anahtarKelimeler = {
-                "ConfigController",
-                "Auto-default-config",
-                "Author",
-                "Title",
-                "Boosbar",
-                "Boosbar-Color",
-                "adding-player",
-                "add-player",
-                "target-player",
-                "player-quit",
-                "target-you-left",
-                "target-left",
-                "none-group",
-                "target-none-group",
-                "player-game-quit",
-                "player-already-group",
-                "player-not-found",
-                "not-found-command",
-                "not-console-command",
-                "not-have-permission",
-                "how-to-use-command-all",
-                "how-to-use-command-add",
-                "how-to-use-command-quit"};
-
-        String[] valuekey = {
-                "false",
-                "false",
-                "Umut",
-                "&7[&cYönetim Sohbet&7]",
-                " &b➤&f",
-                "&7[&c&lYönetim Sohbet&7]",
-                "RED",
-                "&bGruba katıldınız!",
-                "&bAdlı oyuncu gruba eklendi!",
-                "&aGruba eklendiniz!",
-                "&cGrubu terk ettiniz!",
-                "&cGrubunuzdan çıkartıldı!",
-                "&aTarafından gruptan çıkartıldınız!",
-                "&bHerhangi bir grupta değilsiniz!",
-                "&aAdlı oyuncu herhangi bir grupta değil!",
-                "&cAdlı oyuncu oyundan çıktığı için gruptan atıldı",
-                "&3Zaten bir grupta!",
-                "&cBelirtilen oyuncu bulunamadı!",
-                "&4Komut bulunamadı!",
-                "&e&lBu komut sadece oyuncular tarafından kullanılabilir!",
-                "&4Malesef yetkiniz yok!!",
-                "Kullanım şekli: /konuşma ekle/çıkart/bak",
-                "Kullanım şekli: /konusma ekle [oyuncu adı]",
-                "Kullanım şekli: /konusma çıkart [oyuncu adı]"};
-
         config.options().header(" \n" +
                 "Lütfen dosyanın formatını doğru bir şekilde koruyunuz.\n" +
                 "Anahtar kelimeler değiştirilirse config dosyası bozulabilir.\n" +

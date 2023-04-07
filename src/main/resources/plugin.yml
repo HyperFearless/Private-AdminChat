@@ -9,14 +9,13 @@ commands:
     permission: privatechat.true
     description: Ana komut
     aliases:
-      - grup
       - agrup
       - achat
 permissions:
   privatechat.*:
     description: Tüm grup yetkilerine sahip olur
     children:
-      privatechat.true: true
-  privatechat.true:
+      privatechat.grup: true
+  privatechat.grup:
     description: Gruba katılmaya izin verir #Allows to join the group
     default: op
