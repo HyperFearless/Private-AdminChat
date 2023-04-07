@@ -1,7 +1,7 @@
 # Private-AdminChat
 
 ![deneme](https://github.com/HyperFearless/Private-AdminChat/blob/main/adminchat1.png)
-
+deneme
 ##### Sunucunuzda oyuncuları rahatsız etmeden yöneticiler arası bir sohbet kanalı oluştur.
 
 --- 
