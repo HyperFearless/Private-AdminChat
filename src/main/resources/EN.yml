@@ -12,7 +12,7 @@ Auto-default-config: false
 Author: Umut
 
 #Sohbetin özel olduğunu bildirmek için gösterge.
-Title: "&7[&cYönetim Sohbet&7]"
+Title: "&7[&cADMIN Sohbet&7]"
 # Kullanılabilecek bazı simgeler "> , ➔ , ➤ , ➞ , ❯ , ❱ , ᐳ ".
 Title-symbol: " &b➤&f"
 Boosbar: "&7[&c&lYönetim Sohbet&7]"

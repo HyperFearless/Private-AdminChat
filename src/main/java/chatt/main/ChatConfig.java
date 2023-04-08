@@ -1,23 +1,92 @@
 package chatt.main;
 
+import com.google.common.io.ByteStreams;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
-import java.io.File;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+
 public class ChatConfig {
     public Main main;
     public File file;
     public FileConfiguration config;
+    public YamlConfiguration yamlConfiguration;
     public ChatConfig(Plugin plugin , String path, Main main) {
         this(plugin.getDataFolder().toPath().resolve(path).toString());
         this.main = main;
+        file = new File(path);
+        this.config = YamlConfiguration.loadConfiguration(this.file);
     }
     public ChatConfig(String path) {
         file = new File(path);
         this.config = YamlConfiguration.loadConfiguration(this.file);
+    }
+    public void creatfilefolder(){
+        File langFolder = new File (main.getDataFolder(), "lang");
+        langFolder.mkdirs();
+        File enFile = new File(langFolder, "EN.yml");
+        File trFile = new File(langFolder, "TR.yml");
+        if (langFolder.exists()) { // Koşul değiştirildi
+            try {
+                if (!enFile.exists()) {
+                    enFile.createNewFile();
+                    InputStream enInputStream = main.getResource("EN.yml");
+                    Files.copy(enInputStream, enFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                }
+
+                if (!trFile.exists()) {
+                    trFile.createNewFile();
+                    InputStream trInputStream = main.getResource("TR.yml");
+                    Files.copy(trInputStream, trFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                }
+
+                FileConfiguration enConfig = YamlConfiguration.loadConfiguration(enFile);
+                FileConfiguration trConfig = YamlConfiguration.loadConfiguration(trFile);
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+    void loadLanguageFile(String fileName) {
+        File langFile = new File(main.getDataFolder(), "lang/" + fileName);
+        if (!langFile.exists()) {
+            main.saveResource("lang/" + fileName, false);
+        }
+
+        if (fileName.equalsIgnoreCase("EN.yml")) {
+            YamlConfiguration enconfig = YamlConfiguration.loadConfiguration(langFile);
+            this.yamlConfiguration = enconfig;
+            Language.setLanguage(enconfig);
+        } else if (fileName.equalsIgnoreCase("TR.yml")) {
+            YamlConfiguration trconfig = YamlConfiguration.loadConfiguration(langFile);
+            this.yamlConfiguration = trconfig;
+            Language.setLanguage(trconfig);
+        }
+    }
+
+
+    public String getMessage(ConfigMessage configMessage) {
+        return config.getString(configMessage.name().toLowerCase());
+    }
+    public static class Language {
+        private static FileConfiguration lang;
+
+        public static void setLanguage(FileConfiguration langConfig) {
+            lang = langConfig;
+        }
+
+        public static String getMessage(String path) {
+            if (lang == null) {
+                return null;
+            }
+            return ChatColor.translateAlternateColorCodes('&', lang.getString(path));
+        }
     }
     public File getFile()
     {
@@ -32,6 +101,7 @@ public class ChatConfig {
         try {
             this.config.save(this.file);
             main.saveDefaultConfig();
+
         }
         catch (Exception e) {
             e.printStackTrace();

@@ -5,14 +5,14 @@
 # True = Config dosyasınıdaki hataları bulur sırasıyla ve kayıt dosyasına yazar
 # False = Config dosyasındaki hatayı ellemez. Hatalı olan anahtar kelimesini null değerine çevirir
 # eğer auto-default-config çalışıcaksa iki değerinde true olması gerekir.
-langue: "EN"
+langue: "TR"
 ConfigController: false
 Auto-default-config: false
 
 Author: Umut
 
 #Sohbetin özel olduğunu bildirmek için gösterge.
-Title: "&7[&cYönetim Sohbet&7]"
+Title: "&7[&casşldiasldişaslşil Sohbet&7]"
 # Kullanılabilecek bazı simgeler "> , ➔ , ➤ , ➞ , ❯ , ❱ , ᐳ ".
 Title-symbol: " &b➤&f"
 Boosbar: "&7[&c&lYönetim Sohbet&7]"

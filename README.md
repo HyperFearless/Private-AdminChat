@@ -1,24 +1,55 @@
-# Private-AdminChat
-
 ![AdminChatLogo](https://github.com/HyperFearless/Private-AdminChat/blob/main/adminchat1.png)
-##### Sunucunuzda oyuncuları rahatsız etmeden yöneticiler arası bir sohbet kanalı oluştur.
+# Private-AdminChat
+# EN
+
+##### Create private chat channel without disturbing players on your server.
+
+---
+
+#### * Shows the information that you are in private chat with Bossbar.
+#### * Without leaving the group, we will send a "!" in front of the message. You can send a message to other players by placing the sign.
+#### * 100% Language Support (You can change anything you want).
+#### * Upgrade to the plugins version and start the server.
+
+----
+
+##### Main Commands
+    /Agrup
+    /Achat
+##### Subcommands
+    /AGroup Add <Player> (Adds the player to the group)
+    /Agrup Remove <Player> (Removes the player from the group)
+    /Agrup Reload (Refreshes config file) #Bossbar requires reboot
+    /Agroup Leave
+    /Agrup Show (Shows the players in the group)
+
+--- 
+##### Permissions
+
+    privatechat.group : Permission that allows players to create and join groups.
+
+    Perms are available to server administrators by default.
+---
+
+# TR
+
+
+##### Oyuncuları rahatsız etmeden yöneticiler arası sohbet kanalı oluştur.
 
 --- 
 
-#### Bossbar ile özel sohbette olduğunuzun bilgisini gösterir.
-#### Gruptan çıkmadan mesajınızın önüne "!" işaretini koyarak diğer oyunculara mesaj gönderebilirsiniz.
-#### %100 Dil desteği (İstediğiniz herşeyi değiştirebilirsiniz).
-#### Plugins dosyasına at ve sunucuyu başlat.
+#### * Bossbar ile özel sohbette olduğunuzun bilgisini gösterir.
+#### * Gruptan çıkmadan mesajınızın önüne "!" işaretini koyarak diğer oyunculara mesaj gönderebilirsiniz.
+#### * %100 Dil desteği (İstediğiniz herşeyi değiştirebilirsiniz).
+#### * Plugins dosyasına atın ve sunucuyu başlatın.
 
 ---
 
----
-## Komutlar
-###### Ana Komutlar
+##### Main Commands
     /Agrup 
     /Achat
 
-###### Alt komutlar
+##### Alt komutlar
 
     /Agrup Add <Player> (Oyuncuyu gruba ekler)
     /Agrup Exit <Player> (Oyuncuyu gruptan çıkartır)
@@ -31,5 +62,5 @@
 
     Permler default olarak sunucu yöneticilerin bulunur.
 ---
-### Support 
+### Support
 [![Discord Sunucusuna Katıl](https://img.shields.io/discord/<1092430796813512724>?color=7289da&label=Discord&logo=discord&logoColor=ffffff)](<https://discord.gg/BXgMdgJgyH>)
