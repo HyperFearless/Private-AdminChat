@@ -1,0 +1,44 @@
+# Please keep the format of the file properly.
+# If the keywords are changed, the config file may break.
+Translator: Umut
+
+Langue: "En"
+
+# Default value is FALSE
+# True = Finds errors in the config file and writes them to the log file respectively
+# False = Do not touch the errors in the config file. Convert the faulty keyword to a null value.
+ConfigController: false
+# If auto-default-config will run, both values must be true.
+Auto-default-config: false
+
+# Indicator to indicate that the chat is private.
+Title: "&7[&cAdmin Chat&7]"
+
+# Some symbols that can be used "> , ➔ , ➤ , ➞ , ❯ , ❱ , ᐳ ".
+Title-symbol: " &b➤&f"
+Boosbar: "&7[&c&lAdmin Chat&7]"
+
+#BLUE - GREEN - PINK - PURPLE - RED - WHITE - YELLOW
+Boosbar-Color: "RED"
+
+# To make settings such as adding, removing, quitting the game, editing players understandable.
+adding-player: "&bYou have joined the group!"
+add-player: "&bPlayer has been added to the group!"
+target-player: "&aYou have been added to the group!"
+player-quit: "&cYou have left the group!"
+target-you-left: "&cYou have been removed from the group!"
+target-left: "&aYou have been removed from the group by!"
+none-group: "&bYou are not in any group!"
+target-none-group: "&aThe player is not in any group!"
+player-game-quit: "&cThe player has been removed from the group because they quit the game"
+player-already-group: "&3Already in a group!"
+player-not-found: "&cThe specified player could not be found!"
+not-found-command: "&4Command not found!"
+not-console-command: "&e&lThis command can only be used by players!"
+not-have-permission: "&4Sorry, you don't have permission!"
+players-in-the-team: "&aPlayers in the group"
+
+#Description of unavailable commands
+how-to-use-command-all: "Usage: /chat add/remove/view"
+how-to-use-command-add: "Usage: /chat add [player name]"
+how-to-use-command-quit: "Usage: /chat remove [player name]"

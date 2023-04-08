@@ -22,15 +22,18 @@ public class Chat implements Listener {
     public Chat(ChatConfig config)
     {
         this.config = config;
-        if (config.getConfig().contains("Boosbar-Color"))
+    }
+    public void creatbossbar()
+    {
+        if (config.yamlConfiguration.contains("Boosbar-Color"))
         {
-            BarColor color = BarColor.valueOf(config.getConfig().getString("Boosbar-Color"));
-            bossBar = Bukkit.createBossBar(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Boosbar")), color, BarStyle.SOLID);
+            BarColor color = BarColor.valueOf(config.yamlConfiguration.getString("Boosbar-Color"));
+            bossBar = Bukkit.createBossBar(ChatColor.translateAlternateColorCodes('&', config.yamlConfiguration.getString("Boosbar")), color, BarStyle.SOLID);
         }
         else
         {
-            BarColor color = BarColor.valueOf("RED");
-            bossBar = Bukkit.createBossBar(ChatColor.translateAlternateColorCodes('&', "&7[&c&lYönetim Sohbet&7]"), color, BarStyle.SOLID);
+            BarColor color = BarColor.RED;
+            bossBar = Bukkit.createBossBar(ChatColor.translateAlternateColorCodes('&', config.yamlConfiguration.getString("Boosbar")), color, BarStyle.SOLID);
         }
     }
 
@@ -38,6 +41,7 @@ public class Chat implements Listener {
     public void addplayerList(Player player)
     {
         playerList.add(player);
+        creatbossbar();
         bossBar.addPlayer(player);
     }
     //Oyuncuyu gruptan cıkartma
@@ -78,7 +82,7 @@ public class Chat implements Listener {
                     e.setCancelled(true);
                     for (Player target : playerList)
                     {
-                        target.sendMessage(ChatColor.translateAlternateColorCodes('&',config.getConfig().getString("Title") + " " + ChatColor.GREEN.toString()+ player.getDisplayName() + config.getConfig().getString("Title-symbol") + " " + e.getMessage()));
+                        target.sendMessage(ChatColor.translateAlternateColorCodes('&',config.yamlConfiguration.getString("Title") + " " + ChatColor.GREEN.toString()+ player.getDisplayName() + config.yamlConfiguration.getString("Title-symbol") + " " + e.getMessage()));
                     }
                 }
             }
@@ -96,7 +100,7 @@ public class Chat implements Listener {
             {
                 for (Player players : playerList)
                 {
-                    players.sendMessage(ChatColor.translateAlternateColorCodes('&',  config.getConfig().getString("Title")+ " " + player.getDisplayName() +  " " + config.getConfig().getString("player-game-quit")));
+                    players.sendMessage(ChatColor.translateAlternateColorCodes('&',  config.yamlConfiguration.getString("Title")+ " " + player.getDisplayName() +  " " + config.yamlConfiguration.getString("player-game-quit")));
                 }
                 removeplayerList(player);
             }

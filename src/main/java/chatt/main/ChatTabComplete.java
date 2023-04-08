@@ -25,11 +25,11 @@ public class ChatTabComplete implements TabCompleter {
         List<String > list = new ArrayList<>();
         if (args.length == 1)
         {
-            return StringUtil.copyPartialMatches(args[0], Arrays.asList("ekle","reload","cıkart","cık","bak"), new ArrayList<>());
+            return StringUtil.copyPartialMatches(args[0], Arrays.asList("add","reload","remove","leave","show"), new ArrayList<>());
         }
         else if (args.length == 2)
         {
-            if (args[0].equalsIgnoreCase("cıkart"))
+            if (args[0].equalsIgnoreCase("remove"))
             {
                 //Oyuncular listeleniyor
                 List<String > names = new ArrayList<>();
@@ -40,7 +40,7 @@ public class ChatTabComplete implements TabCompleter {
                 }
                 return StringUtil.copyPartialMatches(args[1],names,new ArrayList<>());
             }
-            else if (args[0].equalsIgnoreCase("ekle"))
+            else if (args[0].equalsIgnoreCase("add"))
             {
                 //Oyuncular listeleniyor
                 List<String> names = new ArrayList<>();
@@ -57,7 +57,7 @@ public class ChatTabComplete implements TabCompleter {
                 //Oyuncular listeleniyor
                 List<String> names = new ArrayList<>();
                 for (Player player : Bukkit.getOnlinePlayers()) {
-                    //Sadece op veya perme sahip oyuncular alınıyor
+                    //Sadece op veya perme sahip oyuncular alnıyor
                     if (player.hasPermission("privatechat.grup")) {
                         names.add(player.getName());
                     }

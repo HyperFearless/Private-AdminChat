@@ -1,23 +1,23 @@
 # Lütfen dosyanın formatını doğru bir şekilde koruyunuz.
 # Anahtar kelimeler değiştirilirse config dosyası bozulabilir.
+Translator: Umut
+
+Langue: "Tr"
 
 # Varsayılan değer FALSE
 # True = Config dosyasınıdaki hataları bulur sırasıyla ve kayıt dosyasına yazar
 # False = Config dosyasındaki hatayı ellemez. Hatalı olan anahtar kelimesini null değerine çevirir
-# eğer auto-default-config çalışıcaksa iki değerinde true olması gerekir.
-langue: "TR"
 ConfigController: false
+# Eğer auto-default-config çalışıcaksa iki değerinde true olması gerekir.
 Auto-default-config: false
 
-Author: Umut
-
 #Sohbetin özel olduğunu bildirmek için gösterge.
-Title: "&7[&casşldiasldişaslşil Sohbet&7]"
+Title: "&7[&cYönetim Sohbet&7]"
 # Kullanılabilecek bazı simgeler "> , ➔ , ➤ , ➞ , ❯ , ❱ , ᐳ ".
 Title-symbol: " &b➤&f"
 Boosbar: "&7[&c&lYönetim Sohbet&7]"
 # BLUE - GREEN - PINK - PURPLE - RED - WHITE - YELLOW
-Boosbar-Color: "YELLOW"
+Boosbar-Color: "RED"
 
 # Oyuncuları ekleme, çıkartma, oyunu terk etme, düzenleme gibi ayarların anlaşılabilir kılması için.
 adding-player: "&bGruba katıldınız!"
@@ -34,6 +34,7 @@ player-not-found: "&cBelirtilen oyuncu bulunamadı!"
 not-found-command: "&4Komut bulunamadı!"
 not-console-command: "&e&lBu komut sadece oyuncular tarafından kullanılabilir!"
 not-have-permission: "&4Malesef yetkiniz yok!!"
+players-in-the-team: "&aGruptaki oyuncular"
 
 
 # Kullanılamayan komutların açıklaması

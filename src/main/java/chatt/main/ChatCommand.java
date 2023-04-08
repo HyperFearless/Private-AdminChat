@@ -26,11 +26,11 @@ public class ChatCommand implements CommandExecutor {
                 if (player.hasPermission("privatechat.true"))
                 {
                     //Kullanıcı ekle gruptamı kontrollü
-                    if (args[0].equalsIgnoreCase("ekle"))
+                    if (args[0].equalsIgnoreCase("add"))
                     {
                         //Oyuncu yanlış girer ise
                         if (args.length < 2) {
-                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + config.getConfig().getString("how-to-use-command-add")));
+                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.yamlConfiguration.getString("Title") + " " + config.yamlConfiguration.getString("how-to-use-command-add")));
                             return false;
                         }
                         if (Bukkit.getPlayer(args[1]) != null)
@@ -42,17 +42,17 @@ public class ChatCommand implements CommandExecutor {
                                 if (!chat.getPlayerList().contains(player))
                                 {
                                     chat.addplayerList(player);
-                                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + player.getDisplayName() + " " + config.getConfig().getString("adding-player")));
+                                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.yamlConfiguration.getString("Title") + " " + player.getDisplayName() + " " + config.yamlConfiguration.getString("adding-player")));
                                 }
                                 else
                                 {
-                                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + target.getDisplayName() + " " + config.getConfig().getString("player-already-group")));
+                                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.yamlConfiguration.getString("Title") + " " + target.getDisplayName() + " " + config.yamlConfiguration.getString("player-already-group")));
                                 }
                             }
                             //Oyuncu bulunamadıysa
                             else if (target == null)
                             {
-                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + args[1] + " " + config.getConfig().get("player-not-found")));
+                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.yamlConfiguration.getString("Title") + " " + args[1] + " " + config.getConfig().get("player-not-found")));
                                 return true;
                             }
                             //Oyuncu doğru bir hedef verdiğinde
@@ -64,32 +64,32 @@ public class ChatCommand implements CommandExecutor {
                                     {
                                         chat.addplayerList(player);
                                         chat.addplayerList(target);
-                                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + player.getDisplayName() + " " + config.getConfig().getString("adding-player")));
-                                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + target.getDisplayName() + " " + config.getConfig().getString("add-player")));
-                                        target.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + target.getDisplayName() + " " + config.getConfig().getString("target-player")));
+                                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.yamlConfiguration.getString("Title") + " " + player.getDisplayName() + " " + config.yamlConfiguration.getString("adding-player")));
+                                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.yamlConfiguration.getString("Title") + " " + target.getDisplayName() + " " + config.yamlConfiguration.getString("add-player")));
+                                        target.sendMessage(ChatColor.translateAlternateColorCodes('&', config.yamlConfiguration.getString("Title") + " " + target.getDisplayName() + " " + config.yamlConfiguration.getString("target-player")));
                                     }
                                     else
                                     {
                                         chat.addplayerList(target);
-                                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + target.getDisplayName() + " " + config.getConfig().getString("add-player")));
-                                        target.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + target.getDisplayName() + " " + config.getConfig().getString("target-player")));
+                                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.yamlConfiguration.getString("Title") + " " + target.getDisplayName() + " " + config.yamlConfiguration.getString("add-player")));
+                                        target.sendMessage(ChatColor.translateAlternateColorCodes('&', config.yamlConfiguration.getString("Title") + " " + target.getDisplayName() + " " + config.yamlConfiguration.getString("target-player")));
                                     }
                                 }
                                 //Oyuncu zaten grupta
                                 else if (chat.getPlayerList().contains(target))
                                 {
-                                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + target.getDisplayName() + " " + config.getConfig().getString("player-already-group")));
+                                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.yamlConfiguration.getString("Title") + " " + target.getDisplayName() + " " + config.yamlConfiguration.getString("player-already-group")));
                                 }
                             }
                         }
                     }
                     //gruptan çıkartma
-                    else if (args[0].equalsIgnoreCase("çıkart") || args[0].equalsIgnoreCase("cıkart"))
+                    else if (args[0].equalsIgnoreCase("remove"))
                     {
                         //Oyuncu yanlış girdiyse
                         if (args.length < 2)
                         {
-                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + config.getConfig().getString("how-to-use-command-quit")));
+                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.yamlConfiguration.getString("Title") + " " + config.yamlConfiguration.getString("how-to-use-command-quit")));
                             return false;
                         }
                         //Hedef grupta veya kendisi ise
@@ -98,18 +98,18 @@ public class ChatCommand implements CommandExecutor {
                         {
                             if (!chat.getPlayerList().contains(player))
                             {
-                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + config.getConfig().getString("none-group")));
+                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.yamlConfiguration.getString("Title") + " " + config.yamlConfiguration.getString("none-group")));
                             }
                             else
                             {
                                 chat.removeplayerList(player);
-                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + config.getConfig().getString("player-quit")));
+                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.yamlConfiguration.getString("Title") + " " + config.yamlConfiguration.getString("player-quit")));
                             }
                         }
                         //Hedef yanlış ise
                         else if (target == null)
                         {
-                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + args[1] + " " + config.getConfig().getString("player-not-found")));
+                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.yamlConfiguration.getString("Title") + " " + args[1] + " " + config.yamlConfiguration.getString("player-not-found")));
                             return false;
                         }
                         //Hedef doğru ise
@@ -117,40 +117,40 @@ public class ChatCommand implements CommandExecutor {
                         {
                             if (!chat.getPlayerList().contains(target))
                             {
-                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + target.getDisplayName() + " " + config.getConfig().getString("target-none-group")));
+                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.yamlConfiguration.getString("Title") + " " + target.getDisplayName() + " " + config.yamlConfiguration.getString("target-none-group")));
                             }
                             else
                             {
                                 chat.removeplayerList(target);
-                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + target.getDisplayName() + " " + config.getConfig().getString("target-you-left")));
-                                target.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + player.getDisplayName() + " " + config.getConfig().getString("target-left")));
+                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.yamlConfiguration.getString("Title") + " " + target.getDisplayName() + " " + config.yamlConfiguration.getString("target-you-left")));
+                                target.sendMessage(ChatColor.translateAlternateColorCodes('&', config.yamlConfiguration.getString("Title") + " " + player.getDisplayName() + " " + config.yamlConfiguration.getString("target-left")));
                             }
                         }
                     }
                     //kendin sohbetten çıkmak isterse
-                    else if (args[0].equalsIgnoreCase("çık") || args[0].equalsIgnoreCase("cık"))
+                    else if (args[0].equalsIgnoreCase("leave"))  // ||args[0].equalsIgnoreCase("çık")
                     {
                         if (chat.getPlayerList().contains(player))
                         {
                             chat.removeplayerList(player);
-                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + player.getDisplayName() + " " + config.getConfig().getString("player-quit")));
+                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.yamlConfiguration.getString("Title") + " " + player.getDisplayName() + " " + config.yamlConfiguration.getString("player-quit")));
                         }
                         else
                         {
-                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + config.getConfig().getString("none-group")));
+                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.yamlConfiguration.getString("Title") + " " + config.yamlConfiguration.getString("none-group")));
                         }
                     }
                     //Oyuncu sayılarını kontrol eder
-                    else if (args[0].equalsIgnoreCase("bak"))
+                    else if (args[0].equalsIgnoreCase("show"))
                     {
                         if (!chat.getPlayerList().contains(player))
                         {
-                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + " " + config.getConfig().getString("none-group")));
+                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.yamlConfiguration.getString("Title") + " " + config.yamlConfiguration.getString("none-group")));
                         }
                         else
                         {
                             int i = 1;
-                            player.sendMessage(ChatColor.GREEN + "Gruptaki oyuncular:");
+                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.yamlConfiguration.getString("players-in-the-team")) + ":");
                             for (Player target : chat.getPlayerList())
                             {
                                 player.sendMessage(i +". "+ target.getDisplayName());
@@ -164,24 +164,25 @@ public class ChatCommand implements CommandExecutor {
                         chat.clearList();
                         chat.bossBar.removeAll();
                         config.reloadconfig();
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title")+ " " + "Plugin successfully reloaded"));
+                        config.completereload();
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.yamlConfiguration.getString("Title")+ " " + "Plugin successfully reloaded"));
                     }
                 }
                 else
                 {
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().getString("Title") + config.getConfig().getString("not-have-permission")));
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.yamlConfiguration.getString("Title") + config.yamlConfiguration.getString("not-have-permission")));
                 }
             }
             //Oyuncu komut yanlış girerse veya girmez ise
             else
             {
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getConfig().get("Title") + " " + config.getConfig().getString("how-to-use-command-all")));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.yamlConfiguration.getString("Title") + " " + config.yamlConfiguration.getString("how-to-use-command-all")));
             }
         }
         //Kullanıcı konsoldan komut kullanmak ister ise
         else
         {
-            Bukkit.getLogger().info(ChatColor.translateAlternateColorCodes('&', " " + config.getConfig().getString("Title") + " " + config.getConfig().getString("not-console-command")));
+            Bukkit.getLogger().info(ChatColor.translateAlternateColorCodes('&', " " + config.yamlConfiguration.getString("Title") + " " + config.yamlConfiguration.getString("not-console-command")));
             return false;
         }
         return true;

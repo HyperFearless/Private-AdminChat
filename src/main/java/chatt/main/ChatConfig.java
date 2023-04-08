@@ -1,6 +1,5 @@
 package chatt.main;
 
-import com.google.common.io.ByteStreams;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -13,6 +12,7 @@ import java.nio.file.StandardCopyOption;
 
 public class ChatConfig {
     public Main main;
+    public Chat chat;
     public File file;
     public FileConfiguration config;
     public YamlConfiguration yamlConfiguration;
@@ -26,22 +26,22 @@ public class ChatConfig {
         file = new File(path);
         this.config = YamlConfiguration.loadConfiguration(this.file);
     }
+    //Dil dosyaları yoksa oluştutur
     public void creatfilefolder(){
         File langFolder = new File (main.getDataFolder(), "lang");
         langFolder.mkdirs();
-        File enFile = new File(langFolder, "EN.yml");
-        File trFile = new File(langFolder, "TR.yml");
+        File enFile = new File(langFolder, "En.yml");
+        File trFile = new File(langFolder, "Tr.yml");
         if (langFolder.exists()) { // Koşul değiştirildi
             try {
                 if (!enFile.exists()) {
                     enFile.createNewFile();
-                    InputStream enInputStream = main.getResource("EN.yml");
+                    InputStream enInputStream = main.getResource("En.yml");
                     Files.copy(enInputStream, enFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
                 }
-
                 if (!trFile.exists()) {
                     trFile.createNewFile();
-                    InputStream trInputStream = main.getResource("TR.yml");
+                    InputStream trInputStream = main.getResource("Tr.yml");
                     Files.copy(trInputStream, trFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
                 }
 
@@ -53,27 +53,24 @@ public class ChatConfig {
             }
         }
     }
+    //Dil dosyaları var ise okur ve kaydeder
     void loadLanguageFile(String fileName) {
         File langFile = new File(main.getDataFolder(), "lang/" + fileName);
-        if (!langFile.exists()) {
+        if (!langFile.exists())
+        {
             main.saveResource("lang/" + fileName, false);
         }
-
-        if (fileName.equalsIgnoreCase("EN.yml")) {
+        if (fileName.equalsIgnoreCase("En.yml")) {
             YamlConfiguration enconfig = YamlConfiguration.loadConfiguration(langFile);
             this.yamlConfiguration = enconfig;
             Language.setLanguage(enconfig);
-        } else if (fileName.equalsIgnoreCase("TR.yml")) {
+        } else if (fileName.equalsIgnoreCase("Tr.yml")) {
             YamlConfiguration trconfig = YamlConfiguration.loadConfiguration(langFile);
             this.yamlConfiguration = trconfig;
             Language.setLanguage(trconfig);
         }
     }
-
-
-    public String getMessage(ConfigMessage configMessage) {
-        return config.getString(configMessage.name().toLowerCase());
-    }
+    //Yazılmış dosyayı kontrol edip tanımlama
     public static class Language {
         private static FileConfiguration lang;
 
@@ -114,11 +111,29 @@ public class ChatConfig {
         config = main.getConfig();
     }
 
+    public void completereload() {
+        String lang = getConfig().getString("langue", "En");
+        if (lang.equals("En")) {
+            main.config.loadLanguageFile("En.yml");
+            main.saveDefaultConfig();
+            if (main.config.getFile().exists()) {
+                Bukkit.getLogger().info(ChatColor.translateAlternateColorCodes('&', yamlConfiguration.getString("Title") + " &aStarted Successfully!"));
+            }
+        } else if (lang.equals("Tr")) {
+            //config.reloadconfig();
+            main.config.loadLanguageFile("Tr.yml");
+            if (main.config.getFile().exists())
+            {
+                Bukkit.getLogger().info(ChatColor.translateAlternateColorCodes('&', yamlConfiguration.getString("Title") + " &aBaşarıyla Başlatıldı!"));
+            }
+        }
+    }
     //Dosya kontrol sistemi
     String[] anahtarKelimeler = {
+            "Langue",
             "ConfigController",
             "Auto-default-config",
-            "Author",
+            //"Author",
             "Title",
             "Boosbar",
             "Boosbar-Color",
@@ -140,9 +155,10 @@ public class ChatConfig {
             "how-to-use-command-add",
             "how-to-use-command-quit"};
     String[] valuekey = {
+            "Tr",
             "false",
             "false",
-            "Umut",
+            //"Umut",
             "&7[&cYönetim Sohbet&7]",
             " &b➤&f",
             "&7[&c&lYönetim Sohbet&7]",
@@ -165,25 +181,33 @@ public class ChatConfig {
             "Kullanım şekli: /konusma ekle [oyuncu adı]",
             "Kullanım şekli: /konusma çıkart [oyuncu adı]"};
     public void updater() {
-        config.options().header(" \n" +
+        yamlConfiguration.options().header(" \n" +
                 "Lütfen dosyanın formatını doğru bir şekilde koruyunuz.\n" +
                 "Anahtar kelimeler değiştirilirse config dosyası bozulabilir.\n" +
                 "Varsayılan değer FALSE\n" +
                 "True = Config dosyasınıdaki hataları bulur sırasıyla ve kayıt dosyasına yazar.\n" +
                 "False = Config dosyasındaki hatayı ellemez. Hatalı olan anahtar kelimesini null değerine çevirir.\n" +
                 "Eğer dosya bozulduysa true veya false değerlerinin yanındaki kesme işaretini (') kaldırınız. \n");
-        int a = 9;
+        int a = 4;
         for (int i = 0; i < anahtarKelimeler.length; i++) {
-            if (getConfig().contains(anahtarKelimeler[i])) {
+            if (yamlConfiguration.contains(anahtarKelimeler[i])) {
                 a++;
-                Bukkit.getLogger().warning(ChatColor.translateAlternateColorCodes('&',"&7[&cYönetim Sohbet&7] &c" + a + ".&eSatır " + anahtarKelimeler[i] + " &aanahtar kelimesini içeriyor."));
+                if (yamlConfiguration.contains("En"))
+                {
+                    Bukkit.getLogger().warning(ChatColor.translateAlternateColorCodes('&', yamlConfiguration.getString("Title") + " &c" + a + ".&eSatır " + anahtarKelimeler[i] + " &asdasdasdasdasdasd."));
+                }
+                else if (yamlConfiguration.contains("Tr"))
+                {
+                    Bukkit.getLogger().warning(ChatColor.translateAlternateColorCodes('&', yamlConfiguration.getString("Title") + " &c" + a + ".&eSatır " + anahtarKelimeler[i] + " &aanahtar kelimesini içeriyor."));
+
+                }
             }
             else {
                 a++;
-                Bukkit.getLogger().warning(ChatColor.translateAlternateColorCodes('&',"&7[&cYönetim Sohbet&7] &c" + a + ".&eSatır " + anahtarKelimeler[i] + " &4anahtar kelimesini içermiyor."));
-                if (getConfig().getBoolean("Auto-default-config",true))
+                Bukkit.getLogger().warning(ChatColor.translateAlternateColorCodes('&',yamlConfiguration.getString("Title")  + "&c" + a + ".&eSatır " + anahtarKelimeler[i] + " &4anahtar kelimesini içermiyor."));
+                if (yamlConfiguration.getBoolean("Auto-default-config",true))
                 {
-                    config.set(anahtarKelimeler[i], valuekey[i]);
+                    yamlConfiguration.set(anahtarKelimeler[i], valuekey[i]);
                     save();
                 }
             }
